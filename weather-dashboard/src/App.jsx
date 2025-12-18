@@ -142,7 +142,7 @@ export default function App() {
         {weather && <WeatherCard data={weather} />}
 
         <footer className="mt-8 text-sm text-center text-slate-600 dark:text-slate-400">
-          Powered by OpenWeatherMap — Remember to keep your API key private.
+          Powered by OpenWeatherMap
         </footer>
       </div>
     </div>
