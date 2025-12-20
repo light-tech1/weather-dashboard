@@ -6,12 +6,6 @@ It allows users to search for real-time weather conditions in cities around the 
 The project demonstrates API integration, state management, responsive UI design, and deployment-ready frontend architecture.
 
 ---
-
-## 🚀 Live Demo
-👉 **Deployed App:** (Add your Vercel/Netlify link here)
-
----
-
 ## ✨ Features
 
 - 🔍 Search weather by city name
