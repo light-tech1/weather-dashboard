@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import WeatherCard from "../components/WeatherCard";
 import ErrorMessage from "../components/ErrorMessage";
+import Loader from "../components/Loader";
 
 const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 const REFRESH_INTERVAL = 5 * 60 * 1000; // 5 minutes
@@ -24,13 +25,13 @@ export default function Dashboard() {
       );
 
       if (!res.ok) {
-        throw new Error("City not found");
+        throw new Error("City not found. Please try another city.");
       }
 
       const data = await res.json();
       setWeather(data);
     } catch (err) {
-      setError(err.message || "Something went wrong");
+      setError(err.message || "Something went wrong. Please try again.");
       setWeather(null);
     } finally {
       setLoading(false);
@@ -42,7 +43,7 @@ export default function Dashboard() {
     fetchWeather(city);
   }, []);
 
-  // Auto refresh
+  // Auto refresh every 5 minutes
   useEffect(() => {
     const interval = setInterval(() => {
       fetchWeather(city);
@@ -57,23 +58,31 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 px-4 py-8">
-      <div className="max-w-3xl mx-auto space-y-6">
+    <div className="min-h-screen bg-sky-100 dark:bg-gray-900 flex items-center justify-center px-4">
+      <div className="w-full max-w-3xl bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 space-y-6">
         <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white">
           Weather Dashboard
         </h1>
 
-        <SearchBar onSearch={handleSearch} />
+        <SearchBar onSearch={handleSearch} loading={loading} />
 
-        {loading && (
-          <p className="text-center text-gray-600 dark:text-gray-300">
-            Loading weather data...
+
+        {loading && <Loader text="Fetching weather data..." />}
+
+
+        {error && <ErrorMessage message={error} onClose={() => setError("")} />}
+
+        {!weather && !loading && !error && (
+          <p className="text-center text-gray-400">
+            Search for a city to view current weather information
           </p>
         )}
 
-        {error && <ErrorMessage message={error} />}
-
         {weather && !loading && <WeatherCard weather={weather} />}
+
+        <p className="text-center text-xs text-gray-400 pt-4">
+          Powered by OpenWeatherMap
+        </p>
       </div>
     </div>
   );

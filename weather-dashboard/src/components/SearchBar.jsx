@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-
-export default function SearchBar({ onSearch, initialValue = "", recent = [], onRecentClick }) {
+export default function SearchBar({
+  onSearch,
+  initialValue = "",
+  recent = [],
+  onRecentClick,
+  loading = false,
+}) {
   const [value, setValue] = useState(initialValue);
 
   const submit = (e) => {
-    e?.preventDefault();
+    e.preventDefault();
     if (!value.trim()) return;
     onSearch(value.trim());
     setValue("");
@@ -13,32 +18,37 @@ export default function SearchBar({ onSearch, initialValue = "", recent = [], on
 
   return (
     <div className="mb-6">
-      <form onSubmit={submit} className="flex gap-3 items-center">
+      <form
+        onSubmit={submit}
+        className="flex flex-col sm:flex-row gap-3 items-stretch"
+      >
         <input
-          className="flex-1 w-full max-w-[500px] px-4 py-3 rounded-xl shadow-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-300"
+          className="flex-1 w-full max-w-[500px] px-4 py-3 rounded-xl shadow-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-300 disabled:bg-gray-100"
           placeholder="Search city (e.g., Accra, London, Tokyo)..."
           value={value}
           onChange={(e) => setValue(e.target.value)}
           aria-label="City name"
+          disabled={loading}
         />
+
         <button
-          onClick={submit}
           type="submit"
-          className="px-6 py-3 rounded-xl bg-blue-600 text-white shadow hover:bg-blue-700"
+          disabled={loading}
+          className="px-6 py-3 rounded-xl bg-blue-600 text-white shadow hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          Search
+          {loading ? "Searching..." : "Search"}
         </button>
       </form>
 
-      {recent?.length > 0 && (
+      {recent.length > 0 && (
         <div className="mt-3 flex flex-wrap gap-2">
-          {recent.map((c) => (
+          {recent.map((city) => (
             <button
-              key={c}
-              onClick={() => onRecentClick(c)}
-              className="text-sm px-3 py-1 bg-white dark:bg-slate-800 border border-gray-200 rounded-full shadow-sm"
+              key={city}
+              onClick={() => onRecentClick?.(city)}
+              className="text-sm px-3 py-1 bg-white dark:bg-slate-800 border border-gray-200 rounded-full shadow-sm hover:bg-slate-50"
             >
-              {c}
+              {city}
             </button>
           ))}
         </div>

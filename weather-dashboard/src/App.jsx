@@ -121,7 +121,7 @@ export default function App() {
               className="px-3 py-1 bg-white/80 dark:bg-slate-700 rounded-md shadow"
               aria-label="Toggle theme"
             >
-              Toggle theme
+              Theme
             </button>
             <button
               onClick={handleRefresh}
@@ -140,7 +140,7 @@ export default function App() {
         {error && <ErrorMessage message={error} onClose={clearError} />}
 
         {weather && <WeatherCard data={weather} />}
-
+ 
         <footer className="mt-8 text-sm text-center text-slate-600 dark:text-slate-400">
           Powered by OpenWeatherMap
         </footer>
