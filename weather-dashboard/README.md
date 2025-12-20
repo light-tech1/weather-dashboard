@@ -1,16 +1,51 @@
-# React + Vite
+# 🌦️ WeatherNow — Weather Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+WeatherNow is a responsive weather dashboard built with **React** and **Tailwind CSS**.  
+It allows users to search for real-time weather conditions in cities around the world using the **OpenWeatherMap API**.
 
-Currently, two official plugins are available:
+The project demonstrates API integration, state management, responsive UI design, and deployment-ready frontend architecture.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Live Demo
+👉 **Deployed App:** (Add your Vercel/Netlify link here)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🔍 Search weather by city name
+- 🌡️ Displays temperature, humidity, wind speed, and weather condition
+- 🌤️ Dynamic weather icons from OpenWeatherMap
+- 🔄 Auto-refresh weather data every 5 minutes
+- 🔁 Manual refresh button
+- 🧠 Recent searches saved in localStorage
+- 🌍 Geolocation support (optional, on first load)
+- 🌗 Light / Dark mode toggle
+- ⚠️ Friendly error handling
+- 📱 Fully responsive (desktop & mobile)
+
+---
+
+## 🛠️ Tech Stack
+
+- **React JS** (Vite)
+- **Tailwind CSS**
+- **OpenWeatherMap API**
+- **JavaScript (ES6+)**
+
+---
+
+## 📁 Project Structure
+
+src/
+├── components/
+│ ├── SearchBar.jsx
+│ ├── WeatherCard.jsx
+│ ├── Loader.jsx
+│ └── ErrorMessage.jsx
+├── lib/
+│ └── api.js
+├── App.jsx
+├── main.jsx
+└── index.css
