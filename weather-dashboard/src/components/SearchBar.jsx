@@ -20,23 +20,23 @@ export default function SearchBar({
     <div className="mb-6">
       <form
         onSubmit={submit}
-        className="flex flex-col sm:flex-row gap-3 items-stretch"
+        className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center"
       >
         <input
-          className="flex-1 w-full max-w-[500px] px-4 py-3 rounded-xl shadow-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-300 disabled:bg-gray-100"
-          placeholder="Search city (e.g., Accra, London, Tokyo)..."
+          className="w-full sm:flex-1 max-w-full sm:max-w-[500px]
+            px-4 py-3 rounded-xl shadow-sm border
+            focus:ring-2 focus:ring-sky-300"
+          placeholder="Search city..."
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          aria-label="City name"
-          disabled={loading}
         />
 
         <button
           type="submit"
-          disabled={loading}
-          className="px-6 py-3 rounded-xl bg-blue-600 text-white shadow hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
+          className="w-full sm:w-auto px-6 py-3 rounded-xl
+            bg-blue-600 text-white shadow hover:bg-blue-700"
         >
-          {loading ? "Searching..." : "Search"}
+          Search
         </button>
       </form>
 

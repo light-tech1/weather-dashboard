@@ -1,96 +1,57 @@
+import React from "react";
+
 function kmhFromMs(ms) {
   return Math.round((ms * 3600) / 1000);
 }
 
-function Icon({ icon, description }) {
-  const url = `https://openweathermap.org/img/wn/${icon}@4x.png`;
+export default function WeatherCard({ data }) {
+  // 🛡️ Guard clause (VERY important)
+  if (!data || !data.main || !data.weather) {
+    return null;
+  }
+
+  const temp = Math.round(data.main.temp);
+  const feels = Math.round(data.main.feels_like);
+  const humidity = data.main.humidity;
+  const windKmh = kmhFromMs(data.wind?.speed || 0);
+  const icon = data.weather[0].icon;
+  const description = data.weather[0].description;
 
   return (
-    <div className="flex items-center gap-4">
-      <img src={url} alt={description} className="w-24 h-24" />
-      <p className="text-lg capitalize">{description}</p>
-    </div>
-  );
-}
+      <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow">
+      <h2 className="text-xl sm:text-2xl font-semibold">
+        {data.name}, {data.sys?.country}
+      </h2>
 
-export default function WeatherCard({ weather }) {
-  const temp = Math.round(weather.main.temp);
-  const feels = Math.round(weather.main.feels_like);
-  const humidity = weather.main.humidity;
-  const windKmh = kmhFromMs(weather.wind?.speed || 0);
+      <div className="flex flex-col sm:flex-row sm:items-center gap-6 mt-4">
+        <div className="text-5xl sm:text-6xl font-bold">
+          {temp}°C
+        </div>
 
-  return (
-    <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md">
-      <div className="flex flex-col sm:flex-row justify-between gap-6">
-        {/* Left */}
+        <div className="flex items-center gap-4">
+          <img
+            src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
+            alt={description}
+            className="w-20 h-20 sm:w-24 sm:h-24"
+          />
+          <p className="capitalize text-lg">{description}</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-6 text-center">
         <div>
-          <h2 className="text-3xl font-semibold text-gray-800 dark:text-white">
-            {weather.name}, {weather.sys?.country}
-          </h2>
-
-          <p className="text-sm text-slate-500 dark:text-slate-300 mt-1">
-            {new Date(weather.dt * 1000).toLocaleString()}
-          </p>
-
-          <div className="flex items-center gap-6 mt-4">
-            <div className="text-6xl font-bold text-gray-800 dark:text-white">
-              {temp}°C
-            </div>
-
-            <div className="hidden sm:block">
-              <Icon
-                icon={weather.weather[0].icon}
-                description={weather.weather[0].description}
-              />
-            </div>
-          </div>
+          <p className="text-sm text-gray-500">Temperature</p>
+          <p className="font-semibold">{feels}°C</p>
         </div>
-
-        {/* Right */}
-        <div className="flex flex-col gap-3 sm:items-end">
-          <Info label="Feels like" value={`${feels}°C`} />
-          <Info label="Humidity" value={`${humidity}%`} />
-          <Info label="Wind" value={`${windKmh} km/h`} />
+        <div>
+          <p className="text-sm text-gray-500">Humidity</p>
+          <p className="font-semibold">{humidity}%</p>
+        </div>
+        <div className="col-span-2 sm:col-span-1">
+          <p className="text-sm text-gray-500">Wind</p>
+          <p className="font-semibold">{windKmh} km/h</p>
         </div>
       </div>
-
-      {/* Mobile icon */}
-      <div className="sm:hidden flex items-center mt-6">
-        <img
-          src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-          alt={weather.weather[0].description}
-        />
-        <p className="ml-3 capitalize">
-          {weather.weather[0].description}
-        </p>
-      </div>
-
-      {/* Extra details */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-6">
-        <Stat label="Pressure" value={`${weather.main.pressure} hPa`} />
-        <Stat label="Visibility" value={`${(weather.visibility || 0) / 1000} km`} />
-        <Stat label="Cloudiness" value={`${weather.clouds?.all ?? 0}%`} />
-      </div>
-    </div>
-  );
-}
-
-function Info({ label, value }) {
-  return (
-    <>
-      <span className="text-sm text-slate-500 dark:text-slate-300">{label}</span>
-      <span className="text-xl font-semibold text-gray-800 dark:text-white">
-        {value}
-      </span>
-    </>
-  );
-}
-
-function Stat({ label, value }) {
-  return (
-    <div className="bg-slate-50 dark:bg-slate-700 p-3 rounded-lg text-center">
-      <div className="text-sm text-slate-500 dark:text-slate-300">{label}</div>
-      <div className="font-semibold text-gray-800 dark:text-white">{value}</div>
     </div>
   );
 }

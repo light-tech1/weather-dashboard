@@ -111,23 +111,23 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-sky-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 p-6">
-      <div className="max-w-3xl mx-auto">
-        <header className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold">WeatherNow</h1>
-          <div className="flex items-center gap-3">
+    <div className="min-h-screen bg-sky-50 dark:bg-slate-900 px-4 sm:px-6 lg:px-8 py-6">
+  <div className="max-w-4xl mx-auto">
+
+        <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-center sm:text-left">
+            WeatherNow
+          </h1>
+            <div className="flex justify-center sm:justify-end gap-3">           
             <button
               onClick={() => document.documentElement.classList.toggle("dark")}
-              className="px-3 py-1 bg-white/80 dark:bg-slate-700 rounded-md shadow"
-              aria-label="Toggle theme"
-            >
+              className="px-3 py-1 rounded-md bg-white dark:bg-slate-700 shadow">
               Theme
             </button>
             <button
               onClick={handleRefresh}
               disabled={loading}
-              className="px-3 py-1 bg-blue-600 text-white rounded-md shadow disabled:opacity-60"
-            >
+              className="px-3 py-1 rounded-md bg-blue-600 text-white shadow">
               Refresh
             </button>
           </div>
