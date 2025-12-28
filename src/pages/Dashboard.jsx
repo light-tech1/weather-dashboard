@@ -24,9 +24,7 @@ export default function Dashboard() {
         `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`
       );
 
-      if (!res.ok) {
-        throw new Error("City not found. Please try another city.");
-      }
+      if (!res.ok) throw new Error("City not found. Please try another city.");
 
       const data = await res.json();
       setWeather(data);
@@ -38,17 +36,10 @@ export default function Dashboard() {
     }
   };
 
-  // Initial load
-  useEffect(() => {
-    fetchWeather(city);
-  }, []);
+  useEffect(() => fetchWeather(city), []);
 
-  // Auto refresh every 5 minutes
   useEffect(() => {
-    const interval = setInterval(() => {
-      fetchWeather(city);
-    }, REFRESH_INTERVAL);
-
+    const interval = setInterval(() => fetchWeather(city), REFRESH_INTERVAL);
     return () => clearInterval(interval);
   }, [city]);
 
@@ -58,29 +49,31 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-sky-100 dark:bg-gray-900 flex items-center justify-center px-4">
-      <div className="w-full max-w-3xl bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 space-y-6">
-        <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white">
+    <div className="min-h-screen bg-gradient-to-b from-sky-100 to-sky-200 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center px-4 py-6">
+      <div className="w-full max-w-3xl bg-white dark:bg-gray-800 rounded-2xl shadow-lg sm:p-8 lg:p-10 space-y-6">
+        <h1 className="text-3xl sm:text-4xl font-bold text-center lg:text-left text-gray-800 dark:text-white drop-shadow-md">
           Weather Dashboard
         </h1>
 
-        <SearchBar onSearch={handleSearch} loading={loading} />
-
+        <SearchBar
+          onSearch={handleSearch}
+          loading={loading}
+          className="w-full max-w-lg mx-auto"
+        />
 
         {loading && <Loader text="Fetching weather data..." />}
-
 
         {error && <ErrorMessage message={error} onClose={() => setError("")} />}
 
         {!weather && !loading && !error && (
-          <p className="text-center text-gray-400">
+          <p className="text-center text-gray-500 dark:text-gray-400">
             Search for a city to view current weather information
           </p>
         )}
 
-        {weather && !loading && <WeatherCard weather={weather} />}
+        {weather && !loading && <WeatherCard data={weather} />}
 
-        <p className="text-center text-xs text-gray-400 pt-4">
+        <p className="text-center text-xs text-gray-400 dark:text-gray-500 pt-4">
           Powered by OpenWeatherMap
         </p>
       </div>
