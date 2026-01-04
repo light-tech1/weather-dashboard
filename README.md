@@ -6,6 +6,10 @@ It allows users to search for real-time weather conditions in cities around the 
 The project demonstrates API integration, state management, responsive UI design, and deployment-ready frontend architecture.
 
 ---
+## 🚀 Live Demo
+👉 **Deployed App:**  https://weather-dashboard-omega-lilac.vercel.app
+
+---
 ## ✨ Features
 
 - 🔍 Search weather by city name
@@ -40,6 +44,8 @@ src/
 │ └── ErrorMessage.jsx
 ├── lib/
 │ └── api.js
+├── pages/
+│ └── Dashboard.js
 ├── App.jsx
 ├── main.jsx
 └── index.css

@@ -7,7 +7,7 @@ function kmhFromMs(ms) {
 export default function WeatherCard({ data }) {
   if (!data || !data.main || !data.weather?.length) return null;
 
-  const temp = Math.round(data.main.temp);
+ ;
   const feelsLike = Math.round(data.main.feels_like);
   const humidity = data.main.humidity;
   const windKmh = kmhFromMs(data.wind?.speed || 0);
@@ -25,9 +25,7 @@ export default function WeatherCard({ data }) {
       {/* Temperature + Icon */}
       <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mt-6">
         <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-          <div className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-sky-600 dark:text-sky-300">
-            {temp}°C
-          </div>
+        
           <div className="flex flex-col sm:flex-row items-center gap-3">
             <img
               src={`https://openweathermap.org/img/wn/${icon}@4x.png`}
@@ -57,7 +55,7 @@ export default function WeatherCard({ data }) {
 
         {/* Wind */}
         <div className="flex-1 bg-slate-50 dark:bg-slate-700 p-4 rounded-xl text-center sm:text-left">
-          <p className="text-sm text-slate-500 dark:text-slate-300">Wind</p>
+          <p className="text-sm text-slate-500 dark:text-slate-300">Wind Speed</p>
           <p className="text-xl sm:text-2xl font-semibold">{windKmh} km/h</p>
         </div>
       </div>
